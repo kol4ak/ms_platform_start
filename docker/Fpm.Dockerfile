@@ -12,4 +12,6 @@ ADD docker/conf/php.ini /usr/local/etc/php/php.ini
 RUN wget https://getcomposer.org/installer -O - -q \
     | php -- --install-dir=/bin --filename=composer --quiet
 
+WORKDIR /var/www/steering_api
+
 CMD ["php-fpm"]

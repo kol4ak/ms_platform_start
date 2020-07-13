@@ -11,21 +11,35 @@ services:
       - fpm
     volumes:
       - ./:/var/www/steering_api
+    networks:
+      - app-network
   fpm:
+    container_name: app
     build:
       context: .
       dockerfile: docker/Fpm.Dockerfile
     volumes:
       - ./:/var/www/steering_api
     links:
-      - mysql
+      - db
     environment:
       XDEBUG_CONFIG: "remote_host=127.0.0.1 remote_enable=1 remote_autostart=off  remote_port=9009"
       PHP_IDE_CONFIG: "serverName=two"
-  mysql:
+    networks:
+      - app-network
+  db:
     image: mysql:8
+    container_name: db
+    restart: unless-stopped
+    tty: true
     ports:
-      - 33061:3306
+      - 3306:3306
     environment:
       - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=laravel
+      - MYSQL_DATABASE=steering_db
+    networks:
+      - app-network
+#Docker Networks
+networks:
+  app-network:
+    driver: bridge
