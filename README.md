@@ -1,4 +1,4 @@
-<p><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400" alt=""></p>
+<p><img src="https://steering.com.ua/c/images/others/Logo_ms_ru.svg" width="400" alt=""></p>
 
 <p>
 <a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
@@ -7,21 +7,26 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
-## About Laravel
+## Тестовый шаблон Laravel+Mysql+FPM Docker
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Проблематика
+В даной сборке время ответа из контейнера чистого проекта больше в 10 раз https://prnt.sc/x4ibq3 от этого же проекта запущенного
+на самом дешевом хостинге без использование docker https://prnt.sc/x4iex7.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Задача
+Сконфигурировать так эту сборку, что бы время ответа максимально было приближено к показаниям 
+ответа от проекта развернутого на обычном хостинге без использования docker
 
 ## Команды для запуска проекта
+- устанавливаем нужные библиотеки для проекта
+```html 
+composer install
+```
+- запускаем docker
+```html 
+docker-compose up --build
+```
+- доступен по http://localhost
 - сделать возможным подключения к базе mysql docker контейнера для сторонних программ
 ```html
 docker exec db mysql -u root  -proot -e "ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'root';"
@@ -30,3 +35,4 @@ docker exec db mysql -u root  -proot -e "ALTER USER 'root'@'%' IDENTIFIED WITH m
 ```html
 docker exec -it app php artisan migrate
 ```
+
